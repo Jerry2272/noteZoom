@@ -5,7 +5,6 @@ import EditableLine from '../component/EditableLine';
 import { TodoList } from '../todoList/TodoList';
 import useLocalStorage from '../hook/useLocalStorage';
 import { auth } from '../firebase/Firebase';
-// import { addDoc, collection } from 'firebase/firestore';
 import { useRouter } from 'next/navigation';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
@@ -33,17 +32,19 @@ function Login() {
   const router = useRouter();
   const [isClient, setIsClient] = useState(false);
 
+  // Ensure the component is mounted on the client-side
   useEffect(() => {
     setIsClient(true);
   }, []);
 
+  // Handle redirection based on authentication status
   useEffect(() => {
-    if (!isAuthenticated) {
+    if (isClient && !isAuthenticated) {
       router.push('/login');
-    }else{
-      router.push('/homepage')
+    } else if (isClient && isAuthenticated) {
+      router.push('/homepage');
     }
-  }, [isAuthenticated, router]);
+  }, [isAuthenticated, router, isClient]);
 
   const logOut = () => {
     signOut(auth)
@@ -56,10 +57,8 @@ function Login() {
       });
   };
 
-  const handleAddLine = async (e) => {
+  const handleAddLine = (e) => {
     e.preventDefault();
-    // const addDocs = collection(db, 'notes');
-
     if (type.trim() === '') {
       alert('Input text box is empty');
       return;
@@ -68,14 +67,6 @@ function Login() {
     const newLines = [...lines, type];
     setLines(newLines);
     setType('');
-
-    // try {
-    //   await addDoc(addDocs, { lines: newLines });
-    //   console.log("Document successfully written!");
-    // } catch (error) {
-    //   console.error('Error adding document: ', error.message);
-    //   alert('Error adding note. Please try again.');
-    // }
   };
 
   const handleSaveLine = (index, newText) => {
@@ -133,6 +124,7 @@ function Login() {
             ))}
           </div>
 
+          {/* Ensure ReactQuill only renders on the client side */}
           {isClient && (
             <div className="inputForm flex flex-col text-white">
               <ReactQuill
