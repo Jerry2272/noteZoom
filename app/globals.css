@@ -3,25 +3,91 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
   }
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-}
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
+}
+/* Change the toolbar background to white */
+.ql-toolbar {
+  background-color: white !important;
+  border: none;
+}
+
+/* Change the color of the toolbar buttons */
+.ql-toolbar .ql-picker,
+.ql-toolbar .ql-picker-label,
+.ql-toolbar .ql-picker-options,
+.ql-toolbar button {
+  color: black !important;
+}
+
+/* Change the color of active or selected toolbar buttons */
+.ql-toolbar .ql-active {
+  color: #333 !important;
+}
+
+/* Change the color of dropdowns */
+.ql-toolbar .ql-picker-options {
+  background-color: white !important;
+}
+
+/* Change the border color of dropdowns and buttons */
+.ql-toolbar .ql-picker,
+.ql-toolbar button {
+  border: none !important;
+}
+
+
+
+/* change dark mode on app  */
+.theme-light {
+  background-color: white;
+  color: black;
+}
+
+.theme-dark {
+  background-color:u black;
+  color: white;
+}
+
+.inputText{
+  word-wrap: break-word;
+  text-wrap: wrap;
+}
+
+
+.input {
+  border: none;
+  outline: none;
+  border-radius: 8px;
+}
+
+.zoomInput{
+  border: 4px solid black;
+  outline: none;
+  border-radius:50%;
+  width: 40%;
+  transform: translateY(-20px);
+}
+.zoomInpu{
+  border: 4px solid black;
+  outline: none;
+  border-radius:50%;
+  width: 40%;
+  transform: translateY(-80px);
 }
