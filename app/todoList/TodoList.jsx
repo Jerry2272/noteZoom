@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export const TodoList = () => {
   const [todo, setTodo] = useState('');
   const [todoItems, setTodoItems] = useState(() => {
+    if (typeof window === 'undefined') return []; // Ensure code runs only on the client
     const savedTodos = localStorage.getItem('todolist');
     return savedTodos ? JSON.parse(savedTodos) : [];
   });
@@ -20,7 +21,9 @@ export const TodoList = () => {
   };
 
   useEffect(() => {
-    localStorage.setItem('todolist', JSON.stringify(todoItems));
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('todolist', JSON.stringify(todoItems));
+    }
   }, [todoItems]);
 
   return (

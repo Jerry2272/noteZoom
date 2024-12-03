@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-import { db } from '../firebase/Firebase';
 
 const modules = {
   toolbar: [
@@ -22,11 +21,13 @@ export default function EditableLine({ index, text, onSave, onDelete }) {
     setIsEditing(true);
   };
 
-  const handleSave =  () => {
+  const handleSave = () => {
     if (newText.replace(/<\/?[^>]+(>|$)/g, "").length < 10) {
       alert('Text must be at least 10 characters long.');
       return;
-    } 
+    }
+    onSave(index, newText);  // Call the onSave function passed as a prop
+    setIsEditing(false);  // Exit editing mode
   };
 
   const handleDelete = (e) => {

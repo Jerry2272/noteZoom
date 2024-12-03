@@ -1,5 +1,3 @@
-import { useState, useEffect } from 'react';
-
 export const useLocalStorage = (key, initialValue) => {
   // Retrieve stored value or use initial value
   const getStoredValue = () => {
